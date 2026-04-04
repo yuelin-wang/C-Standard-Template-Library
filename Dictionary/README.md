@@ -1,1 +1,4 @@
-# Hash Table
+# Dictionary
+
+## Implementation
+hash table
