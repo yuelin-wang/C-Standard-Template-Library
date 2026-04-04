@@ -4,7 +4,7 @@ This library provides type generic containers in C.
 
 ## Content
 | ADT | Implementation | Status |
-| --- | -------------- | ------ |
+| :---: | :--------------: | :------: |
 | Vector | Array | Complete |
 | Queue | Circular Buffer | Complete |
 | Dictionary | Hash Table | Incomplete |
