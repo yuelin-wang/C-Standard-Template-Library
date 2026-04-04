@@ -7,7 +7,7 @@ This library provides type generic containers in C.
 | :---: | :--------------: | :------: |
 | Vector | Array | Complete |
 | Queue | Circular Buffer | Complete |
-| Dictionary | Hash Table | Incomplete |
+| Dictionary | Hash Table | In Process |
 
 ## Usage
 1. Download: go to the corresponding container folders and download the C codes.
