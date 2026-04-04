@@ -9,7 +9,7 @@ This library provides type generic containers in C.
     #define VECTOR_TYPE_INPUT 'i'
     #include "vector.c"
     ```
-3. Use the corresponding structure: then you should have a structure that you can use.
+3. Use the corresponding structure: then you should have a type definition of a structure that you can use.
     ```C
     intVector vector;
     initializeIntVector(&vector, 8);
@@ -45,3 +45,6 @@ int main() {
     return 0;
 }
 ```
+
+## License
+<a href="https://github.com/yuelin-wang/C-Standard-Template-Library">C STL</a> by <a href="https://github.com/yuelin-wang">Yuelin Wang (Steven)</a> is marked <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/zero.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;">
