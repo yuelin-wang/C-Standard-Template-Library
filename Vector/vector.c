@@ -28,6 +28,7 @@ Structure and function name
     Initialize:
         If not default: initialize<type with the first letter capitalized>Vector
         Default: initializeVector
+    note: the type of string here will be "string," not char [] or char *
 
 Usage
     Structure: if want to manually initialized, vector vector1 = {malloc(10), 10, 0, 0};

@@ -3,8 +3,8 @@
 This library provides type generic containers in C.
 
 ## Usage
-1. Download: go to the corresponding container folders and download the C files.
-2. Include the container: a container usually requires some definitions of macro. In your C code files, first define the macros and then include the downloaded C container. 
+1. Download: go to the corresponding container folders and download the C codes.
+2. Include the container: a container from this library usually requires some definitions of macro. In your C code files, first define the macros and then include the downloaded C container. 
     ```C
     #define VECTOR_TYPE_INPUT 'i'
     #include "vector.c"
@@ -12,6 +12,36 @@ This library provides type generic containers in C.
 3. Use the corresponding structure: then you should have a structure that you can use.
     ```C
     intVector vector;
-    initializeIntVector(vector);
-    intVectorAdd(vector, 5);
+    initializeIntVector(&vector, 8);
+    intVectorAdd(&vector, 5);
     ```
+
+## Example
+```C
+#define VECTOR_TYPE_INPUT 'i'
+#include "vector.c"
+
+#define VECTOR_TYPE_INPUT 's'
+#include "vector.c"
+
+int main() {
+    intVector vector1;
+    initializeIntVector(&vector1, 8);
+    intVectorAdd(&vector1, 5);
+
+    intVector vector2;
+    initializeIntVector(&vector2, 8);
+    intVectorAdd(&vector2, 4);
+    printIntVector(vector2);
+
+    stringVector vector3;
+    initializeStringVector(&vector3, 5);
+    stringVectorAdd(&vector3, "hello world");
+
+    freeIntV(vector1);
+    freeIntV(vector2);
+    freeStringV(vector3);
+
+    return 0;
+}
+```
