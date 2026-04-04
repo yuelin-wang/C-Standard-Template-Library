@@ -47,4 +47,4 @@ int main() {
 ```
 
 ## License
-<a href="https://github.com/yuelin-wang/C-Standard-Template-Library">C STL</a> by <a href="https://github.com/yuelin-wang">Yuelin Wang (Steven)</a> is marked <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/zero.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;">
+[C STL](https://github.com/yuelin-wang/C-Standard-Template-Library) by [Yuelin Wang (Steven)](https://github.com/yuelin-wang) is marked [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)![Creative Common icon](https://mirrors.creativecommons.org/presskit/icons/cc.svg)![Creative Common 0 icon](https://mirrors.creativecommons.org/presskit/icons/zero.svg)
