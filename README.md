@@ -1,5 +1,7 @@
 # C Standard Template Library
 
+This library provides type generic containers in C.
+
 ## Usage
 1. Download: go to the corresponding container folders and download the C files.
 2. Include the container: a container usually requires some definitions of macro. In your C code files, first define the macros and then include the downloaded C container. 
