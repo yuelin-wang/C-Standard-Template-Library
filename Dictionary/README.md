@@ -1,4 +1,4 @@
 # Dictionary
 
 ## Implementation
-hash table
+The implementation is hash table.
