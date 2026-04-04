@@ -3,11 +3,9 @@
 This library provides type generic containers in C.
 
 ## Content
-| ADT | Implementation | Status |
-| :---: | :--------------: | :------: |
-| Vector | Array | Complete |
-| Queue | Circular Buffer | Complete |
-| Dictionary | Hash Table | In Progress |
+- Vector
+- Queue
+- Dictionary
 
 ## Usage
 1. Download: go to the corresponding container folders and download the C codes.
