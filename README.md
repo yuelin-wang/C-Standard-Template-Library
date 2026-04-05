@@ -3,9 +3,11 @@
 This library provides type generic containers in C.
 
 ## Content
-- Vector
-- Queue
-- Dictionary
+| ADT | Implementation | Freestanding | Minimum Standard |
+| :---: | :--------------: | :------------: | :----------------:|
+| Vector | Array | No (I/O, String) | C99 |
+| Queue | Circular Buffer | No (I/O, String) | C99 |
+| Dictionary | Hash Table | No (String) | C99 |
 
 ## Usage
 1. Download: go to the corresponding container folders and download the C codes.
