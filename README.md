@@ -5,22 +5,29 @@ This library provides type generic containers in C.
 ## Content
 | ADT | Implementation | Freestanding | Minimum Standard |
 | :---: | :--------------: | :------------: | :----------------:|
-| Vector | Array | No | C99 |
-| Queue | Circular Buffer | No | C99 |
-| Dictionary | Hash Table | No | C99 |
+| Vector | Array | No (I/O, String, Memory Allocation) | C99 |
+| Queue | Circular Buffer | No (I/O, String, Memory Allocation) | C99 |
+| Dictionary | Hash Table | No (I/O, String, Memory Allocation) | C99 |
 
 ## Usage
 1. Download: go to the corresponding container folders and download the C codes.
-2. Include the container: a container from this library usually requires some definitions of macro. In your C code files, first define the macros and then include the downloaded C container. 
+2. Include the container: to use a data structure, please include the downloaded C code in your file. Before including, a container from this library usually requires some definitions of macro. In your C code files, first define the macros and then include the downloaded C container. 
     ```C
     #define VECTOR_TYPE_INPUT 'i'
     #include "vector.c"
     ```
-3. Use the corresponding structure: then you should have a type definition of a structure that you can use.
+    Each type of the data structure requires an individual input macro definition and inclusion.
     ```C
-    intVector vector;
-    initializeIntVector(&vector, 8);
-    intVectorAdd(&vector, 5);
+    #define VECTOR_TYPE_INPUT 'i'
+    #include "vector.c" // integer vector
+    #define VECTOR_TYPE_INPUT 's'
+    #include "vector.c" // string vector
+    ```
+3. Use the corresponding structure: then you should have a type definition of a structure and various functions associating with that structure that you can use.
+    ```C
+    intVector vector; // (the type definition of) the structure of integer vector
+    initializeIntVector(&vector, 8); // the initializing function of integer vector
+    intVectorAdd(&vector, 5); // the addition function of integer vector
     ```
 
 ## Example
