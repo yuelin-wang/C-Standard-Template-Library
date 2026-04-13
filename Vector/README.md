@@ -13,7 +13,13 @@ C type generic vector
 continue: 
 | Type | Add | Pop | Initialize |
 | :----: | :---: | :---: | :----------: |
-| int | `void intVectorAdd(intVector * input, int value)` | `void intVectorPop(intVector * input)` |  `void initializeIntVector(intVector * input, int size)` |
-| string | `void stringVectorAdd(stringVector * input, char * value)` | `void stringVectorPop(stringVector * input)` | `void initializeStringVector(stringVector * input, int size)` |
+| int | `void intVectorAdd(intVector * input, int value)` | `void intVectorPop(intVector * input)` |  `void intVectorInitialize(intVector * input, int size)` |
+| string | `void stringVectorAdd(stringVector * input, char * value)` | `void stringVectorPop(stringVector * input)` | `void stringVectorInitialize(stringVector * input, int size)` |
+
+continue:
+| Type | Free | Print |
+| :----: | :----: | :-----: |
+| int | `void intVectorFree(intVector * input)` | `void intVectorPrint(intVector * input)` |
+| string | `void stringVectorFree(stringVector * input)` | `void stringVectorPrint(stringVector * input)` |
 
 ## Usage
