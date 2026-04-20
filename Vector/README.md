@@ -3,6 +3,15 @@ C type generic vector
 
 ## Content
 
+#### Structure
+The structure name is `<type>Vector`
+```C
+stringVector v1; // a string vector named v1
+intVector v2; // an integer vector named v2
+```
+
+#### Function
+
 #### Type Support
 
 | Type | Structure | Index | Update | 
@@ -17,9 +26,9 @@ continue:
 | string | `void stringVectorAdd(stringVector * input, char * value)` | `void stringVectorPop(stringVector * input)` | `void stringVectorInitialize(stringVector * input, int size)` |
 
 continue:
-| Type | Free | Print |
-| :----: | :----: | :-----: |
-| int | `void intVectorFree(intVector * input)` | `void intVectorPrint(intVector * input)` |
-| string | `void stringVectorFree(stringVector * input)` | `void stringVectorPrint(stringVector * input)` |
+| Type | Free | Expand | Print |
+| :----: | :----: | :------: | :-----: |
+| int | `void intVectorFree(intVector * input)` | `void intVectorExpand(intVector * input)` | `void intVectorPrint(intVector * input)` |
+| string | `void stringVectorFree(stringVector * input)` | `void stringVectorExpand(stringVector * input)` | `void stringVectorPrint(stringVector * input)` |
 
 ## Usage
