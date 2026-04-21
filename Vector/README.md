@@ -3,16 +3,23 @@ C type generic vector
 
 ## Content
 
-#### Structure
+### Structure
 The structure name is `<type>Vector`
 ```C
 stringVector v1; // a string vector named v1
 intVector v2; // an integer vector named v2
 ```
+The names of the types are
+| General Name | Name Used in This Library | C type |
+| :----: | :----: | :------: |
+| int/signed int | int | `int` |
+| string | string | `char *`/`char []` |
+| boolean/logical | bool | `_Bool`/`bool` |
+| character | char | `char` |
 
-#### Function
+### Function
 
-#### Type Support
+### Type Support
 
 | Type | Structure | Index | Update | 
 | :----: | :---------: | :-----: | :------: | 
