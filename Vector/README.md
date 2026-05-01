@@ -64,6 +64,11 @@ Syntax: `<type>  <type name>VectorIndex(<corresponding vector> * input, int inde
     - a pointer of a vector in corresponding
     - an int that specifies the index (first element is at index 0, same as C)
 
+Example:
+```C
+int element = intVectorIndex(&v, 1); // returns the value of the second element
+```
+
 ### Type Support
 The supported types are:
 - int
