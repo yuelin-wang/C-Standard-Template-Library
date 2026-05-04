@@ -27,7 +27,6 @@ You need to define VECTOR_TYPE_INPUT everytime you include a vector. If you want
 ```
 
 ## Content
-Each inclusion of a vector will introduce (a type definition of) a structure and various global functions. These global functions is equal to the member function of C++'s `std::vector`. Say you want to index the second element of an int vector, in C++ that's `v[1]` and in this library that's `intVectorIndex(&v, 1)`.
 
 ### Structure
 The structure name is `<type>Vector`
@@ -35,8 +34,8 @@ The structure name is `<type>Vector`
 stringVector v1; // a string vector named v1
 intVector v2; // an integer vector named v2
 ```
-The names of the types are
-| General Name | Name Used in This Library | C type |
+The names of the types referred in this library are
+| General Name | Term Used in This Library | C type |
 | :----: | :----: | :------: |
 | int/signed int | int | `int` |
 | string | string | `char *`/`char []` |
@@ -58,16 +57,24 @@ The names of the types are
 | Print | N/A | Prints the elements of the vector | O(n) |
 
 #### Index
-Syntax: `<type>  <type name>VectorIndex(<corresponding vector> * input, int index)`
+Syntax: `<type>  <type name>VectorIndex(<corresponding vector> * input, size_t index)`
 - returns in the corresponding type
 - 2 arguments
-    - a pointer of a vector in corresponding
-    - an int that specifies the index (first element is at index 0, same as C)
+    - a pointer of a vector in corresponding type
+    - a size_t that specifies the index (first element is at index 0, same as C)
+- for the index argument, a simple integer constant (such as `4`) should be fine. Although the type of the integer constant is most likely going to be int, C will perform implicit conversion to size_t
 
 Example:
 ```C
 int element = intVectorIndex(&v, 1); // returns the value of the second element
 ```
+
+#### Update
+Syntax: `void <type name>VectorUpdate(<corresponding vector> * input, size_t index, <corresponding type> value)`
+- 3 arguments
+    - a pointer of a vector in corresponding type
+    - a size_t that specifies the index
+    - the value you want to update
 
 ### Type Support
 The supported types are:
@@ -78,8 +85,8 @@ The supported types are:
 
 | Type | Structure | Index | Update | 
 | :----: | :---------: | :-----: | :------: | 
-| int | `intVector` | `int intVectorIndex(intVector * input, int index)` | `void intVectorUpdate(intVector * input, int index, int value)` | 
-| string | `stringVector` | `char * stringVectorIndex(stringVector * input, int index)` | `void stringVectorUpdate(stringVector * input, int index, char * value)` |
+| int | `intVector` | `int intVectorIndex(intVector * input, size_t index)` | `void intVectorUpdate(intVector * input, size_t index, int value)` | 
+| string | `stringVector` | `char * stringVectorIndex(stringVector * input, size_t index)` | `void stringVectorUpdate(stringVector * input, size_t index, char * value)` |
 
 continue: 
 | Type | Add | Pop |
@@ -90,8 +97,8 @@ continue:
 continue: 
 | Type | Initialize | Free |
 | :----: | :----------: | :----: |
-| int | `void intVectorInitialize(intVector * input, int size)` | `void intVectorFree(intVector * input)` |
-| string | `void stringVectorInitialize(stringVector * input, int size)` | `void stringVectorFree(stringVector * input)` |
+| int | `void intVectorInitialize(intVector * input, size_t size)` | `void intVectorFree(intVector * input)` |
+| string | `void stringVectorInitialize(stringVector * input, size_t size)` | `void stringVectorFree(stringVector * input)` |
 
 continue:
 | Type | Size | Expand | Print |

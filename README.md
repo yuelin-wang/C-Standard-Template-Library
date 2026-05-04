@@ -25,7 +25,8 @@ This library provides type generic containers in C.
     while in this library, you would write
     ```C
     intVector v;    // v is an instance of a structure named intVector
-    intVectorInitialize(&v, 10); // intVectorInitialize is a global function. Here it reserves 10 element for the vector
+    intVectorInitialize(&v, 10); // intVectorInitialize is a global function. 
+                                 // Here it reserves 10 element for the vector
     intVectorAdd(&v, 4); // adds an element of 4 at the end of the vector
     ```
 3. Each different type requires separate input macro definitions and inclusion.
