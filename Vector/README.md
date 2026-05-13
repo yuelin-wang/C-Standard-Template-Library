@@ -3,7 +3,7 @@ C type generic vector
 
 ## Usage
 
-Please first read the [usage section](https://github.com/yuelin-wang/C-Standard-Template-Library#usage) of the C STL.  
+Please first read the [usage section](../README.md#usage) of the C STL.  
 For vector, there are 1 required macro and 1 optional macro you need to define.
 
 Required:
