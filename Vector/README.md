@@ -57,7 +57,10 @@ The names of the types referred in this library are
 | Print | N/A | Prints the elements of the vector | O(n) |
 
 #### Index
-Syntax: `<type>  <type name>VectorIndex(<corresponding vector> * input, size_t index)`
+Syntax: 
+```C
+<type>  <type name>VectorIndex(<corresponding vector> * input, size_t index)
+```
 - returns in the corresponding type
 - 2 arguments
     - a pointer of a vector in corresponding type
@@ -70,11 +73,34 @@ int element = intVectorIndex(&v, 1); // returns the value of the second element
 ```
 
 #### Update
-Syntax: `void <type name>VectorUpdate(<corresponding vector> * input, size_t index, <corresponding type> value)`
+Syntax: 
+```C
+void <type name>VectorUpdate(<corresponding vector> * input, size_t index, <corresponding type> value)
+```
 - 3 arguments
     - a pointer of a vector in corresponding type
     - a size_t that specifies the index
     - the value you want to update
+
+Example:
+```C
+intVectorUpdate(&v, 2, 1928); // update the third element to 1928
+```
+
+#### Add
+Syntax: 
+```C
+void <type name>VectorAdd(<corresponding vector> * input, <corresponding type> value)
+```
+- 2 arguments
+    - a pointer of a vector in corresponding type
+    - the element to add
+- Same as C++, this will increase size by 1 and doesn't change capacity, adding the element at the end of the vector
+
+Example: 
+```C
+intVectorAdd(&v, 239); // add the element of 239 at the end of the vector
+```
 
 ### Type Support
 The supported types are:
