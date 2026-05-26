@@ -28,19 +28,19 @@ You need to define VECTOR_TYPE_INPUT everytime you include a vector. If you want
 
 ## Content
 
+### Type Support
+The supported types are:
+- int
+- string
+- bool
+- character 
+
 ### Structure
 The structure name is `<type>Vector`
 ```C
 stringVector v1; // a string vector named v1
 intVector v2; // an integer vector named v2
 ```
-The names of the types referred in this library are
-| General Name | Term Used in This Library | C type |
-| :----: | :----: | :------: |
-| int/signed int | int | `int` |
-| string | string | `char *`/`char []` |
-| boolean/logical | bool | `_Bool`/`bool` |
-| character | char | `char` |
 
 ### Function
 
@@ -102,7 +102,7 @@ Example:
 intVectorAdd(&v, 239); // add the element of 239 at the end of the vector
 ```
 
-### Pop
+#### Pop
 Syntax:
 ```C
 void <type name>VectorPop(<corresponding vector> * input)
@@ -116,7 +116,7 @@ Example:
 intVectorPop(&v); // remove the last element
 ```
 
-### Initialize
+#### Initialize
 Syntax:
 ```C
 void <type name>VectorInitialize(<corresponding vector> * input, size_t capacity)
@@ -131,7 +131,7 @@ Example:
 intVectorInitialize(&v, 10); // sets the capacity to 10, size is 0
 ```
 
-### Free
+#### Free
 Syntax:
 ```C
 void <type name>VectorFree(<corresponding vector> * input)
@@ -145,7 +145,7 @@ Example:
 intVectorFree(&v); // frees the dynamic memory allocated for the vector
 ```
 
-### Size
+#### Size
 Syntax:
 ```C
 size_t <type name>VectorSize(<corresponding vector> * input)
@@ -161,7 +161,7 @@ for (size_t i = 0; i < intVectorSize(&v); i++) {
 }
 ```
 
-### Print
+#### Print
 Syntax:
 ```C
 void <type name>VectorPrint(<corresponding vector> * input)
@@ -178,32 +178,58 @@ Printing content:
 
 Format: `[<value 1>, <value 2>, ... <value n>], <type> vector, current size: <size>, current capacity: <capacity>\n`
 
-### Type Support
-The supported types are:
-- int
-- string
-- bool
-- character 
+Exmaple:
+```C
+intVectorPrint(&v1) // [15, 10, 5], int vector, current size: 3, current capacity: 4\n
+```
 
-| Type | Structure | Index | Update | 
-| :----: | :---------: | :-----: | :------: | 
-| int | `intVector` | `int intVectorIndex(intVector * input, size_t index)` | `void intVectorUpdate(intVector * input, size_t index, int value)` | 
-| string | `stringVector` | `char * stringVectorIndex(stringVector * input, size_t index)` | `void stringVectorUpdate(stringVector * input, size_t index, char * value)` |
+## Library Inclusion
+The following library will be included in this file
+- `stdlib.h`: for memory allocation
+- `stdio.h` (if the macro `VECTOR_NO_IO` is not defined): for printing
+- `string.h` (if the vector type is string): for `strcpy()`
+- `stdbool.h` (if the vector type is bool and if the standard the compiler is using is prior to C23): for macro `true` and `false`
 
-continue: 
-| Type | Add | Pop |
-| :----: | :---: | :---: |
-| int | `void intVectorAdd(intVector * input, int value)` | `void intVectorPop(intVector * input)` |
-| string | `void stringVectorAdd(stringVector * input, char * value)` | `void stringVectorPop(stringVector * input)` |
+## Notes on Boolean Vector
+- when you are supplying the `value` argument in `boolVectorUpdate()`, integral value such as `1` or Boolean value such as `true` are both fine
 
-continue: 
-| Type | Initialize | Free |
-| :----: | :----------: | :----: |
-| int | `void intVectorInitialize(intVector * input, size_t size)` | `void intVectorFree(intVector * input)` |
-| string | `void stringVectorInitialize(stringVector * input, size_t size)` | `void stringVectorFree(stringVector * input)` |
+## Example
+```C
+#define VECTOR_TYPE_INPUT 'i'
+#include "vector.h" // includes integer vector
 
-continue:
-| Type | Size | Expand | Print |
-| :----: | :----: | :------: | :-----: |
-| int | `size_t intVectorSize(intVector * input)` | `void intVectorExpand(intVector * input)` | `void intVectorPrint(intVector * input)` |
-| string | `size_t stringVectorSize(stringVector * input)` | `void stringVectorExpand(stringVector * input)` | `void stringVectorPrint(stringVector * input)` |
+#define VECTOR_TYPE_INPUT 's'
+#include "vector.h" // includes string vector
+
+int main() {
+    intVector v1;
+    intVectorInitialize(&v1, 4);
+    intVectorAdd(&v1, 10);  // [10]
+    intVectorAdd(&v1, 5);   // [10, 5]
+    intVectorUpdate(&v1, 1, 10);    // [10, 10]
+    intVectorPop(&v1);      // [10]
+    intVectorPrint(&v1);    // [10], int vector, current size: 1; current capacity: 4\n
+
+    stringVector v2;
+    stringVectorInitialize(&v2, 4);
+    stringVectorAdd(&v2, "I");      // ["I"]
+    stringVectorAdd(&v2, "love");   // ["I", "love"]
+    stringVectorAdd(&v2, "Taylor Swift");   // ["I", "love", "Taylor Swift"]
+    for (size_t i = 0; i < stringVectorSize(&v2); i++) {
+        printf("%s ", stringVectorIndex(&v2, i));
+    }
+    printf("\n");
+    // I love Taylor Swift
+
+    stringVector v3;
+    stringVectorInitialize(&v3, 4);
+    stringVectorAdd(&v3, "the future is dark");  // ["the future is dark"]
+    stringVectorUpdate(&v3, 0, "but trust me, hope will always by your side!"); // ["but trust me, hope will always by your side!"]
+
+    intVectorFree(&v1);
+    stringVectorFree(&v2);
+    stringVectorFree(&v3);
+    
+    return 0;
+}
+```
