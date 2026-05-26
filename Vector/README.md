@@ -14,7 +14,7 @@ Required:
     - `'c'`: character 
 
 Optional:
-- VECTOR_NO_IO: this means that the vector included will not have a printing function and will not include `stdio.h` library. The value could be anything (including no values). As long as this macro is defined, the vector will not include `stdio.h` library 
+- VECTOR_NO_IO: this means that the vector included will not have a printing function and will not include the `stdio.h` library. The value could be anything (including no values). As long as this macro is defined, the vector will not include the `stdio.h` library 
 
 You need to define VECTOR_TYPE_INPUT everytime you include a vector. If you want all the vectors you included to not have a printing function, you need to define VECTOR_NO_IO everytime you include a vector.
 ```C
@@ -50,10 +50,9 @@ The names of the types referred in this library are
 | Update | `v[<index>] = <value>` | Updates the element at the specified index | O(1) |
 | Add | `v.push_back(<value>)` | Adds the value at the end of the vector | (Amortized) O(1) |
 | Pop | `v.pop_back(<value>)` | Removes the last element | O(1) |
-| Initialize | The Constructor | Initializes the vector, specifies the capacity | O(1) |
+| Initialize | The Constructor (but only sets the capacity, does not set the size) | Initializes the vector, specifies the capacity | O(1) |
 | Free | The Destructor | Frees the allocated memory | O(1) (non-string vector)/O(n) (string vector) |
 | Size | `v.size()` | Returns the size of the vector | O(1) |
-| Expand | `v.reserve(<the current capacity * 2>)` | Doubles the capacity | O(n) |
 | Print | N/A | Prints the elements of the vector | O(n) |
 
 #### Index
@@ -95,12 +94,89 @@ void <type name>VectorAdd(<corresponding vector> * input, <corresponding type> v
 - 2 arguments
     - a pointer of a vector in corresponding type
     - the element to add
-- Same as C++, this will increase size by 1 and doesn't change capacity, adding the element at the end of the vector
+- same as C++, this will increase size by 1 and doesn't change capacity, adding the element at the end of the vector
+- will expand the vector if the current capacity is full before the addition
 
 Example: 
 ```C
 intVectorAdd(&v, 239); // add the element of 239 at the end of the vector
 ```
+
+### Pop
+Syntax:
+```C
+void <type name>VectorPop(<corresponding vector> * input)
+```
+- 1 argument
+    - a pointer of a vector in corresponding type
+- reduces the size by 1, removes the last element
+
+Example:
+```C
+intVectorPop(&v); // remove the last element
+```
+
+### Initialize
+Syntax:
+```C
+void <type name>VectorInitialize(<corresponding vector> * input, size_t capacity)
+```
+- 2 arguments
+    - a pointer of a vector in corresponding type
+    - a size_t that specifies the initial capacity
+- note that this only sets the capacity, the size is stll 0. Using addition after this will increase the size to 1 and add the element to the first position. This is different from C++, where `vector<int> v(10);` will set both the size and capacity to 10
+
+Example:
+```C
+intVectorInitialize(&v, 10); // sets the capacity to 10, size is 0
+```
+
+### Free
+Syntax:
+```C
+void <type name>VectorFree(<corresponding vector> * input)
+```
+- 1 argument
+    - a pointer of a vector in corresponding type
+- calls `free()` under the hood. Thus, please ensure that you free every vector at the end to avoid memory leak
+
+Example: 
+```C
+intVectorFree(&v); // frees the dynamic memory allocated for the vector
+```
+
+### Size
+Syntax:
+```C
+size_t <type name>VectorSize(<corresponding vector> * input)
+```
+- 1 argument
+    - a pointer of a vector in corresponding type
+- returns the number of element in the vector
+
+Example:
+```C
+for (size_t i = 0; i < intVectorSize(&v); i++) {
+    printf("%d ", intVectorIndex(&v, i));
+}
+```
+
+### Print
+Syntax:
+```C
+void <type name>VectorPrint(<corresponding vector> * input)
+```
+- 1 argument
+    - a pointer of a vector in corresponding type
+- will not exist if the macro `VECTOR_NO_IO` is defined
+
+Printing content:
+- every element
+- type of vector
+- current size
+- current capacity
+
+Format: `[<value 1>, <value 2>, ... <value n>], <type> vector, current size: <size>, current capacity: <capacity>\n`
 
 ### Type Support
 The supported types are:
