@@ -29,7 +29,7 @@ This library provides type generic containers in C.
                                  // Here it reserves 10 element for the vector
     intVectorAdd(&v, 4); // adds an element of 4 at the end of the vector
     ```
-3. Each different type requires separate input macro definitions and inclusion.
+3. Each different type requires separate input macro definitions and inclusion
     ```C
     #define VECTOR_TYPE_INPUT 'i'
     #include "vector.c" // integer vector
@@ -37,10 +37,29 @@ This library provides type generic containers in C.
     #define VECTOR_TYPE_INPUT 's'
     #include "vector.c" // string vector
     ```
+    Please define the required macro right before each inclusion
+    ```C
+    /* the following is incorrect
+    #define VECTOR_TYPE_INPUT 'i'
+    #define VECTOR_TYPE_INPUT 's'
+
+    #include "vector.c"
+    #include "vector.c"
+    */
+    ```
 4. Free the allocated memory: in this library, the data structure will allocate dynamic memory. So please free the allocated memory for each instance at the end of the main function
     ```C
     intVectorFree(v); // frees the dynamic memory allocated for the instance v
     ```
+
+## Type Name
+The names of the types referred in this library are
+| General Name | Term Used in This Library | C type |
+| :----: | :----: | :------: |
+| int/signed int | int | `int` |
+| string | string | `char *`/`char []` |
+| boolean/logical | bool | `_Bool`/`bool` |
+| character | char | `char` |
 
 ## Example
 ```C
