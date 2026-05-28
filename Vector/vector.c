@@ -2,179 +2,162 @@
 Hello, thanks for using this! I can't believe that you are using this file, thank you so much :) !
 
 There are 1 required macro and 1 optional macro
-    VECTOR_TYPE_INPUT (required): a character
+    VECTOR_TYPE_INPUT (required): a character indicating which type of vector this file will create
         'i': int
         'c': character
         's': string
         'b': bool
-    VECTOR_DEFAULT (optional): if this macro is defined, then the vector name and function doesn't contain type name
+    VECTOR_NO_IO (optional): any value (including no value) is fine. If defined, will not include stdio.h and the print function
 
-Structure and function name
-    Structure: 
-        If not default: <type>Vector
-        Default: vector
-    Add:
-        If not default: <type>VectorAdd
-        Default: add
-    Pop:
-        If not default: <type>VectorPop
-        Default: pop
-    Print:
-        If not default: print<type with the first letter capitalized>Vector
-        Default: printVector
-    Free:
-        If not default: free<type with the first letter capitalized>V
-        Default: freeV
-    Initialize:
-        If not default: initialize<type with the first letter capitalized>Vector
-        Default: initializeVector
+Structure and function syntax
+    Structure: <type>Vector
+    Index: <type>VectorIndex(<corresponding vector type> * input, size_t index)
+    Update: <type>VectorUpdate(<corresponding vector type> * input, size_t index, <type> value)
+    Add: <type>VectorAdd(<corresponding vector type> * input, <type>)
+    Pop: <type>VectorPop(<corresponding vector type> * input)
+    Initialize: <type>VectorInitialize(<corresponding vector type> * input, size_t capacity)
+    Free: <type>VectorFree(<corresponding vector type> * input)
+    Size: <type>VectorSize(<corresponding vector type> * input)
+    Print: <type>VectorPrint(<corresponding vector type> * input)
     note: the type of string here will be "string," not char [] or char *
 
-Usage
-    Structure: if want to manually initialized, vector vector1 = {malloc(10), 10, 0, 0};
-    Initialize: initializeVector(vector * input vector, int element amount)
-    Add: add(vector * input vector, <type> value)
-    Pop: pop(vector * input vector)
-    Print: printVector(vector input vector)
-    Free: freeV(vector input vector);
-    Indexing: vector.array[i]
+For the entire documentation, please visit https://github.com/yuelin-wang/C-Standard-Template-Library/tree/main/Vector
 */
 
 
-// these are code to be included once
+// vector included once (if you use multiple types of vector, this section will be only included once)
 #ifndef VECTOR_HEADER
 #define VECTOR_HEADER
 
-#define VECTOR_ADD_OK1(word)    ADD_OK2(VECTOR_TYPE_NAME, word)
-#define VECTOR_ADD_OK2(word)    ADD_OK2(VECTOR_NAME, word)
+#define VECTOR_ADD_TYPE(word)    ADD2(VECTOR_TYPE_NAME, word)   // concatenate "<vector's type>" with "<word>"
+#define VECTOR_ADD_NAME(word)    ADD2(VECTOR_NAME, word)    // concatenate "<vector's type>Vector" with "<word>"
 
-#include <stdlib.h> // memory allocation
-#include <stdio.h> // printf
+#ifndef VECTOR_NO_IO
+#include <stdio.h>  // printf
+#endif
+#include <stdlib.h> // memory allocation, size_t
 
-#endif // end include once code
+#endif // end vector include once code
 
 
-// C STL macro function include once
+// C STL macro function include once (if you use other files from C STL, this section will be only included once)
 #ifndef C_STL_MACRO_HEADER
 #define C_STL_MACRO_HEADER
 
-#define ADD_OK1(pre, word)   pre##word
-#define ADD_OK2(pre, word)   ADD_OK1(pre, word)
-#define ADD_OK3(word1ok, word2ok, word3ok)   word1ok##word2ok##word3ok
-#define ADD_OK4(word1ok, word2ok, word3ok)   ADD_OK3(word1ok, word2ok, word3ok) 
-#define STRING1(word) #word
-#define STRING2(word) STRING1(word)
-#define ADD_BOOL_OK1(word)   bool##word
-#define ADD_BOOL_OK2(word)   ADD_BOOL_OK1(word)
+#define ADD1(pre, word)   pre##word         // first layer of 2-word concatenation
+#define ADD2(pre, word)   ADD1(pre, word)   // second layer of 2-word concatenation (note: 2 layers of word concatenation 
+                                            // allows parameter expansion before concatenation)
+#define STRING1(word) #word                 // first layer of stringify
+#define STRING2(word) STRING1(word)         // second layer of stringify
+#define ADD_BOOL1(word)   bool##word        // first layer of concatenating "bool" with "<word>"
+#define ADD_BOOL2(word)   ADD_BOOL1(word)   // second layer of concatenation "bool" with "<word>"
 
 #endif // end C STL macro function include once
 
 
-// type
+// type input
 #if VECTOR_TYPE_INPUT == 'i'
-#define VECTOR_TYPE     int
-#define VECTOR_TYPE_NAME int
-#define VECTOR_CAPITAL_TYPE Int
+#define VECTOR_TYPE     int     // the name of the type in C syntax
+#define VECTOR_TYPE_NAME int    // the name of the type in the function name
 #define FORMAT_STRING   "%d"
+
+// inclusion guard for including the same type of vector multiple times
 #ifndef VECTOR_INT_HEADER
 #define VECTOR_INT_HEADER
 #else
 #define VECTOR_REPETE
 #endif
 
+
 #elif VECTOR_TYPE_INPUT == 's'
 #define VECTOR_TYPE     char *
 #define VECTOR_TYPE_NAME string
-#define VECTOR_CAPITAL_TYPE String
 #define FORMAT_STRING   "%s"
-#include <string.h> // strcpy
+
+#include <string.h>             // strcpy
+
 #ifndef VECTOR_STRING_HEADER
 #define VECTOR_STRING_HEADER
 #else
 #define VECTOR_REPETE
 #endif
 
+
 #elif VECTOR_TYPE_INPUT == 'c'
 #define VECTOR_TYPE     char
 #define VECTOR_TYPE_NAME char
-#define VECTOR_CAPITAL_TYPE Char
 #define FORMAT_STRING   "%c"
+
 #ifndef VECTOR_CHAR_HEADER
 #define VECTOR_CHAR_HEADER
 #else
 #define VECTOR_REPETE
 #endif
 
+
 #elif VECTOR_TYPE_INPUT == 'b'
 #define VECTOR_TYPE     bool
 #define VECTOR_TYPE_NAME boolean
-#define VECTOR_CAPITAL_TYPE Bool
 #define FORMAT_STRING   "%d"
+
 #if __STDC_VERSION__ < 202311L
-#include <stdbool.h> // bool
+#include <stdbool.h>            // bool
 #endif
+
 #ifndef VECTOR_BOOL_HEADER
 #define VECTOR_BOOL_HEADER
 #else
 #define VECTOR_REPETE
 #endif
 
-#endif
+#endif  // end type input
 
-
-// vector function name
-// not default
-#ifndef VECTOR_DEFAULT
 
 // vector name
 #if VECTOR_TYPE_INPUT != 'b' || __STDC_VERSION__ >= 202311L
-#define VECTOR_NAME     VECTOR_ADD_OK1(Vector)
-#else // in case Boolean type and prior to C23
-#define VECTOR_NAME     ADD_BOOL_OK2(Vector)
+#define VECTOR_NAME     VECTOR_ADD_TYPE(Vector)
+#else // in case Boolean type and prior to C23 (which the formal name is actuall "_Bool")
+#define VECTOR_NAME     ADD_BOOL2(Vector)
 #endif
 
-#define VECTOR_INITIALIZE   ADD_OK4(initialize, VECTOR_CAPITAL_TYPE, Vector)
-#define VECTOR_ADD      VECTOR_ADD_OK2(Add)
-#define VECTOR_POP      VECTOR_ADD_OK2(Pop)
-#define VECTOR_PRINT    ADD_OK4(print, VECTOR_CAPITAL_TYPE, Vector)
-#define VECTOR_FREE     ADD_OK4(free, VECTOR_CAPITAL_TYPE, V)
-#define VECTOR_EXPAND   VECTOR_ADD_OK2(Expand)
+// vector function name
+#define VECTOR_INITIALIZE   VECTOR_ADD_NAME(Initialize)
+#define VECTOR_ADD      VECTOR_ADD_NAME(Add)
+#define VECTOR_POP      VECTOR_ADD_NAME(Pop)
+#define VECTOR_FREE     VECTOR_ADD_NAME(Free)
+#define VECTOR_EXPAND   VECTOR_ADD_NAME(Expand)
+#define VECTOR_PRINT    VECTOR_ADD_NAME(Print)
 
-// default
-#else
-#define VECTOR_NAME     vector
-#define VECTOR_INITIALIZE   initializeVector
-#define VECTOR_ADD      add
-#define VECTOR_POP      pop
-#define VECTOR_PRINT    printVector
-#define VECTOR_FREE     freeV
-#define VECTOR_EXPAND   expand
-#endif
 
-// same type of vector include once
+// inclusion guard for including the same type of vector multiple times
 #ifndef VECTOR_REPETE
+
 typedef struct VECTOR_NAME {
+    size_t size;
+    size_t capacity;
     VECTOR_TYPE* array;
-    int memoryAmount;
-    int element;
 } VECTOR_NAME;
 
+// MODIFIES: the pointer to the array, the capacity
+// EFFECTS: double the capacity of the vector, (deep) copy the old array to the new array, free the memory allocated for the old array
+// NOTE: you, as the user, usually would not need to use this function. Addition function will handle all the expansion for you
 void VECTOR_EXPAND(VECTOR_NAME * vector) {
-    vector -> memoryAmount *= 2;
-    VECTOR_TYPE * ok = malloc(vector -> memoryAmount);
-    for (int i = 0; i < vector -> element; i ++) {
+    vector -> capacity *= 2;
+    VECTOR_TYPE * temp = malloc(vector -> capacity * sizeof(VECTOR_TYPE));
+    for (int i = 0; i < vector -> size; i ++) {
         #if VECTOR_TYPE_INPUT != 's'
-        ok[i] = (vector -> array)[i];
+        temp[i] = (vector -> array)[i];
         #else
-        ok[i] = malloc(strlen(vector -> array[i]) + 1);
-        strcpy(ok[i], vector -> array[i]);
+        temp[i] = malloc(strlen(vector -> array[i]) + 1);
+        strcpy(temp[i], vector -> array[i]);
         free(vector -> array[i]);
         #endif
     }
 
     free(vector -> array);
-    vector -> array = ok;
+    vector -> array = temp;
 }
+
 
 void VECTOR_ADD(VECTOR_NAME * vector, VECTOR_TYPE value) {
     while ( (vector -> element + 1) * sizeof(VECTOR_TYPE) > vector -> memoryAmount) {
@@ -191,6 +174,7 @@ void VECTOR_ADD(VECTOR_NAME * vector, VECTOR_TYPE value) {
     vector -> element ++;
 }
 
+
 void VECTOR_POP(VECTOR_NAME * vector) {
     if (vector -> element <= 0 ) {
         printf("vector is empty\n");
@@ -204,6 +188,8 @@ void VECTOR_POP(VECTOR_NAME * vector) {
     vector -> element --;
 }
 
+
+#ifndef VECTOR_NO_IO
 void VECTOR_PRINT(VECTOR_NAME vector) {
     int currentElement = 0;
     printf("[");
@@ -219,6 +205,8 @@ void VECTOR_PRINT(VECTOR_NAME vector) {
     printf(" current element number: %d, current memory amount: %lu, memory amount: %d\n", 
     vector.element, vector.element * sizeof(VECTOR_TYPE), vector.memoryAmount);
 }
+#endif
+
 
 void VECTOR_FREE(VECTOR_NAME vector) {
     #if VECTOR_TYPE_INPUT == 's'
@@ -230,6 +218,7 @@ void VECTOR_FREE(VECTOR_NAME vector) {
     free(vector.array);
 }
 
+
 void VECTOR_INITIALIZE(VECTOR_NAME * vector, int elementAmount) {
     int memory = elementAmount * sizeof(VECTOR_TYPE);
 
@@ -237,15 +226,18 @@ void VECTOR_INITIALIZE(VECTOR_NAME * vector, int elementAmount) {
     vector -> memoryAmount = memory;
     vector -> element = 0;
 }
-#endif // end same type of vector include once
+#endif // end inclusion guard for including the same type of vector multiple times
+
 
 #undef VECTOR_REPETE
+
 #undef VECTOR_TYPE_INPUT
+#undef VECTOR_NO_IO
+
 #undef VECTOR_TYPE
 #undef VECTOR_TYPE_NAME
-#undef VECTOR_CAPITAL_TYPE
 #undef FORMAT_STRING
-#undef VECTOR_DEFAULT
+
 #undef VECTOR_NAME
 #undef VECTOR_INITIALIZE
 #undef VECTOR_ADD
@@ -256,17 +248,7 @@ void VECTOR_INITIALIZE(VECTOR_NAME * vector, int elementAmount) {
 
 /*
 int main() {
-    vector vector1;
-    initializeVector(vector1);
-    add(&vector1, 1);
-    printVector(vector1);
-    add(&vector1, 2);
-    printVector(vector1);
-    add(&vector1, 3);
-    printVector(vector1);
-    pop(&vector1);
-    printVector(vector1);
-    
-    freeV(vector1);
+
+    return 0;
 }
 */

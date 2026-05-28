@@ -2,7 +2,6 @@
 C type generic vector
 
 ## Usage
-
 Please first read the [usage section](../README.md#usage) of the C STL.  
 For vector, there are 1 required macro and 1 optional macro you need to define.
 
@@ -49,7 +48,7 @@ intVector v2; // an integer vector named v2
 | Index | `v[<index>]` | Returns the element at the specified index | O(1) |
 | Update | `v[<index>] = <value>` | Updates the element at the specified index | O(1) |
 | Add | `v.push_back(<value>)` | Adds the value at the end of the vector | (Amortized) O(1) |
-| Pop | `v.pop_back(<value>)` | Removes the last element | O(1) |
+| Pop | `v.pop_back()` | Removes the last element | O(1) |
 | Initialize | The Constructor (but only sets the capacity, does not set the size) | Initializes the vector, specifies the capacity | O(1) |
 | Free | The Destructor | Frees the allocated memory | O(1) (non-string vector)/O(n) (string vector) |
 | Size | `v.size()` | Returns the size of the vector | O(1) |
@@ -184,7 +183,7 @@ intVectorPrint(&v1) // [15, 10, 5], int vector, current size: 3, current capacit
 ```
 
 ## Library Inclusion
-The following library will be included in this file
+The following libraries will be included in this file
 - `stdlib.h`: for memory allocation
 - `stdio.h` (if the macro `VECTOR_NO_IO` is not defined): for printing
 - `string.h` (if the vector type is string): for `strcpy()`
