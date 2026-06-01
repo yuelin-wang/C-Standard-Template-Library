@@ -56,6 +56,8 @@ For the entire documentation, please visit https://github.com/yuelin-wang/C-Stan
 
 
 // type input
+
+// int
 #if VECTOR_TYPE_INPUT == 'i'
 #define VECTOR_TYPE     int     // the name of the type in C syntax
 #define VECTOR_TYPE_NAME int    // the name of the type in the function name
@@ -69,6 +71,7 @@ For the entire documentation, please visit https://github.com/yuelin-wang/C-Stan
 #endif
 
 
+// string
 #elif VECTOR_TYPE_INPUT == 's'
 #define VECTOR_TYPE     char *
 #define VECTOR_TYPE_NAME string
@@ -83,6 +86,7 @@ For the entire documentation, please visit https://github.com/yuelin-wang/C-Stan
 #endif
 
 
+// character
 #elif VECTOR_TYPE_INPUT == 'c'
 #define VECTOR_TYPE     char
 #define VECTOR_TYPE_NAME char
@@ -95,6 +99,7 @@ For the entire documentation, please visit https://github.com/yuelin-wang/C-Stan
 #endif
 
 
+// bool
 #elif VECTOR_TYPE_INPUT == 'b'
 #define VECTOR_TYPE     bool
 #define VECTOR_TYPE_NAME boolean
@@ -132,12 +137,14 @@ For the entire documentation, please visit https://github.com/yuelin-wang/C-Stan
 // inclusion guard for including the same type of vector multiple times
 #ifndef VECTOR_REPETE
 
+// structure
 typedef struct VECTOR_NAME {
     size_t size;
     size_t capacity;
     VECTOR_TYPE* array;
 } VECTOR_NAME;
 
+// Expand
 // MODIFIES: the pointer to the array, the capacity
 // EFFECTS: double the capacity of the vector, (deep) copy the old array to the new array, free the memory allocated for the old array
 // NOTE: you, as the user, usually would not need to use this function. Addition function will handle all the expansion for you
