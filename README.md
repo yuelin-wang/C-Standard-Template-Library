@@ -103,4 +103,4 @@ int main() {
 ```
 
 ## License
-C STL by Yuelin Wang (Steven) is marked [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)![Creative Common icon](https://mirrors.creativecommons.org/presskit/icons/cc.svg)![Creative Common 0 icon](https://mirrors.creativecommons.org/presskit/icons/zero.svg)
+This work (C STL) is marked [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)![Creative Common icon](https://mirrors.creativecommons.org/presskit/icons/cc.svg)![Creative Common 0 icon](https://mirrors.creativecommons.org/presskit/icons/zero.svg)
