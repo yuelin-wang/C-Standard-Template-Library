@@ -165,20 +165,22 @@ void VECTOR_EXPAND(VECTOR_NAME * vector) {
     vector -> array = temp;
 }
 
-
+// Add
+// MODIFIES: the size, the pointer to the array (if expanding), the capacity (if expanding)
+// EFFECTS: increase the size by 1, add the value at the end of the vector
 void VECTOR_ADD(VECTOR_NAME * vector, VECTOR_TYPE value) {
-    while ( (vector -> element + 1) * sizeof(VECTOR_TYPE) > vector -> memoryAmount) {
+    while ( (vector -> size + 1) > vector -> capacity) {
         VECTOR_EXPAND(vector);
     }
 
     #if VECTOR_TYPE_INPUT != 's'
-    vector -> array[vector -> element] = value;
+    vector -> array[vector -> size] = value;
     #else
-    vector -> array[vector -> element] = malloc(strlen(value) + 1);
-    strcpy(vector -> array[vector -> element], value);
+    vector -> array[vector -> size] = malloc(strlen(value) + 1);
+    strcpy(vector -> array[vector -> size], value);
     #endif
 
-    vector -> element ++;
+    vector -> sizez ++;
 }
 
 

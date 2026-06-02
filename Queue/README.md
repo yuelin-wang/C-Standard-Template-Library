@@ -51,3 +51,17 @@ intQueue q2; // an integer queue named q2
 | Free | The Destructor | Frees the allocated memory | O(1) (non-string queue)/O(n) (string queue) |
 | Size | `q.size()` | Returns the size of the queue | O(1) |
 | Print | N/A | Prints the elements of the queue | O(n) |
+
+#### Front
+Syntax:
+```C
+<type> <type name>QueueFront(<corresponding queue> * input)
+```
+- returns in the corresponding type
+- 1 argument
+    - a pointer of a queue in the corresponding type
+
+Example:
+```C
+int front = intQueueFront(&q);  // returns the front element of the queue
+```
