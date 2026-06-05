@@ -43,7 +43,7 @@ intVector v2; // an integer vector named v2
 
 ### Function
 
-| Name | `std::vector` counterpart | Functionality | Time Complexity |
+| Name | C++ `std::vector` Counterpart | Functionality | Time Complexity |
 | :----: | :-------------------------: | :-------------: | :---------------: |
 | Index | `v[<index>]` | Returns the element at the specified index | O(1) |
 | Update | `v[<index>] = <value>` | Updates the element at the specified index | O(1) |

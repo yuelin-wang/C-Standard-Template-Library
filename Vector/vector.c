@@ -180,7 +180,7 @@ void VECTOR_ADD(VECTOR_NAME * vector, VECTOR_TYPE value) {
     strcpy(vector -> array[vector -> size], value);
     #endif
 
-    vector -> sizez ++;
+    vector -> size ++;
 }
 
 
