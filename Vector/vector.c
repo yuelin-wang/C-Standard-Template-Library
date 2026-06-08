@@ -144,10 +144,13 @@ typedef struct VECTOR_NAME {
     VECTOR_TYPE* array;
 } VECTOR_NAME;
 
+
 // Expand
 // MODIFIES: the pointer to the array, the capacity
-// EFFECTS: double the capacity of the vector, (deep) copy the old array to the new array, free the memory allocated for the old array
-// NOTE: you, as the user, usually would not need to use this function. Addition function will handle all the expansion for you
+// EFFECTS: double the capacity of the vector, (deep) copy the old array to the new array, 
+//      free the memory allocated for the old array
+// NOTE: you, as the user, usually would not need to use this function. 
+//      Addition function will handle all the expansion for you
 void VECTOR_EXPAND(VECTOR_NAME * vector) {
     vector -> capacity *= 2;
     VECTOR_TYPE * temp = malloc(vector -> capacity * sizeof(VECTOR_TYPE));
@@ -164,6 +167,7 @@ void VECTOR_EXPAND(VECTOR_NAME * vector) {
     free(vector -> array);
     vector -> array = temp;
 }
+
 
 // Add
 // MODIFIES: the size, the pointer to the array (if expanding), the capacity (if expanding)
@@ -184,35 +188,37 @@ void VECTOR_ADD(VECTOR_NAME * vector, VECTOR_TYPE value) {
 }
 
 
+// Pop
+// REQUIRES: size ≥ 1
+// MODIFIES: the size
+// EFFECTS: remove the last element
+// NOTES: there is no assertion here because I want to use 
+//      as less content that's outside a freestanding environment as possible
 void VECTOR_POP(VECTOR_NAME * vector) {
-    if (vector -> element <= 0 ) {
-        printf("vector is empty\n");
-        return;
-    }
-
     #if VECTOR_TYPE_INPUT == 's'
-    free(vector -> array[vector -> element]);
+    free(vector -> array[vector -> size]);
     #endif
 
-    vector -> element --;
+    vector -> size --;
 }
 
 
+// Print
+// EFFECTS: print (1) type, (2) every element in order, (3) size, (4) capacity
 #ifndef VECTOR_NO_IO
 void VECTOR_PRINT(VECTOR_NAME vector) {
-    int currentElement = 0;
+    size_t currentElement = 0;
     printf("[");
-    while (currentElement < vector.element) {
+    while (currentElement < vector.size) {
         printf(FORMAT_STRING, vector.array[currentElement]);
         currentElement++;
-        if (currentElement < vector.element) {
+        if (currentElement < vector.size) {
             printf(", ");
         }
     }
 
     printf("], %s vector,", STRING2(VECTOR_TYPE_NAME));
-    printf(" current element number: %d, current memory amount: %lu, memory amount: %d\n", 
-    vector.element, vector.element * sizeof(VECTOR_TYPE), vector.memoryAmount);
+    printf(" current size: %zu, current capacity: %zu\n", vector.size, vector.capacity);
 }
 #endif
 

@@ -43,7 +43,7 @@ intVector v2; // an integer vector named v2
 
 ### Function
 
-| Name | C++ `std::vector` Counterpart | Functionality | Time Complexity |
+| Name | C++'s `std::vector` Counterpart | Functionality | Time Complexity |
 | :----: | :-------------------------: | :-------------: | :---------------: |
 | Index | `v[<index>]` | Returns the element at the specified index | O(1) |
 | Update | `v[<index>] = <value>` | Updates the element at the specified index | O(1) |
@@ -55,6 +55,8 @@ intVector v2; // an integer vector named v2
 | Print | N/A | Prints the elements of the vector | O(n) |
 
 #### Index
+Function name: \<type name\>VectorIndex
+
 Syntax: 
 ```C
 <type>  <type name>VectorIndex(<corresponding vector> * input, size_t index)
@@ -71,6 +73,8 @@ int element = intVectorIndex(&v, 1); // returns the value of the second element
 ```
 
 #### Update
+Function name: \<type name\>VectorUpdate
+
 Syntax: 
 ```C
 void <type name>VectorUpdate(<corresponding vector> * input, size_t index, <corresponding type> value)
@@ -86,6 +90,8 @@ intVectorUpdate(&v, 2, 1928); // update the third element to 1928
 ```
 
 #### Add
+Function name: \<type name\>VectorAdd
+
 Syntax: 
 ```C
 void <type name>VectorAdd(<corresponding vector> * input, <corresponding type> value)
@@ -102,6 +108,8 @@ intVectorAdd(&v, 239); // add the element of 239 at the end of the vector
 ```
 
 #### Pop
+Function name: \<type name\>VectorPop
+
 Syntax:
 ```C
 void <type name>VectorPop(<corresponding vector> * input)
@@ -109,6 +117,7 @@ void <type name>VectorPop(<corresponding vector> * input)
 - 1 argument
     - a pointer of a vector in corresponding type
 - reduces the size by 1, removes the last element
+- the size of the vector need to be ≥ 1
 
 Example:
 ```C
@@ -116,6 +125,8 @@ intVectorPop(&v); // remove the last element
 ```
 
 #### Initialize
+Function name: \<type name\>VectorInitialize
+
 Syntax:
 ```C
 void <type name>VectorInitialize(<corresponding vector> * input, size_t capacity)
@@ -131,6 +142,8 @@ intVectorInitialize(&v, 10); // sets the capacity to 10, size is 0
 ```
 
 #### Free
+Function name: \<type name\>VectorFree
+
 Syntax:
 ```C
 void <type name>VectorFree(<corresponding vector> * input)
@@ -145,6 +158,8 @@ intVectorFree(&v); // frees the dynamic memory allocated for the vector
 ```
 
 #### Size
+Function name: \<type name\>VectorSize
+
 Syntax:
 ```C
 size_t <type name>VectorSize(<corresponding vector> * input)
@@ -161,6 +176,8 @@ for (size_t i = 0; i < intVectorSize(&v); i++) {
 ```
 
 #### Print
+Function name: \<type name\>VectorPrint
+
 Syntax:
 ```C
 void <type name>VectorPrint(<corresponding vector> * input)
