@@ -55,7 +55,7 @@ intVector v2; // an integer vector named v2
 | Print | N/A | Prints the elements of the vector | O(n) |
 
 #### Index
-Function name: \<type name\>VectorIndex
+Function name: `<type name>VectorIndex`
 
 Syntax: 
 ```C
@@ -73,7 +73,7 @@ int element = intVectorIndex(&v, 1); // returns the value of the second element
 ```
 
 #### Update
-Function name: \<type name\>VectorUpdate
+Function name: `<type name>VectorUpdate`
 
 Syntax: 
 ```C
@@ -90,7 +90,7 @@ intVectorUpdate(&v, 2, 1928); // update the third element to 1928
 ```
 
 #### Add
-Function name: \<type name\>VectorAdd
+Function name: `<type name>VectorAdd`
 
 Syntax: 
 ```C
@@ -108,7 +108,7 @@ intVectorAdd(&v, 239); // add the element of 239 at the end of the vector
 ```
 
 #### Pop
-Function name: \<type name\>VectorPop
+Function name: `<type name>VectorPop`
 
 Syntax:
 ```C
@@ -125,7 +125,7 @@ intVectorPop(&v); // remove the last element
 ```
 
 #### Initialize
-Function name: \<type name\>VectorInitialize
+Function name: `<type name>VectorInitialize`
 
 Syntax:
 ```C
@@ -142,7 +142,7 @@ intVectorInitialize(&v, 10); // sets the capacity to 10, size is 0
 ```
 
 #### Free
-Function name: \<type name\>VectorFree
+Function name: `<type name>VectorFree`
 
 Syntax:
 ```C
@@ -158,7 +158,7 @@ intVectorFree(&v); // frees the dynamic memory allocated for the vector
 ```
 
 #### Size
-Function name: \<type name\>VectorSize
+Function name: `<type name>VectorSize`
 
 Syntax:
 ```C
@@ -176,7 +176,7 @@ for (size_t i = 0; i < intVectorSize(&v); i++) {
 ```
 
 #### Print
-Function name: \<type name\>VectorPrint
+Function name: `<type name>VectorPrint`
 
 Syntax:
 ```C

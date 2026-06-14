@@ -1,8 +1,8 @@
 /*
-Hello, thanks for using this! I can't believe that you are using this file, thank you so much :) !
+Hello, thanks for using this! I can't believe that you are using this code, thank you so much :) !
 
 There are 1 required macro and 1 optional macro
-    VECTOR_TYPE_INPUT (required): a character indicating which type of vector this file will create
+    VECTOR_TYPE_INPUT (required): a character indicating which type of vector this code will create
         'i': int
         'c': character
         's': string
@@ -19,6 +19,7 @@ Structure and function syntax
     Free: <type>VectorFree(<corresponding vector type> * input)
     Size: <type>VectorSize(<corresponding vector type> * input)
     Print: <type>VectorPrint(<corresponding vector type> * input)
+    
     note: the type of string here will be "string," not char [] or char *
 
 For the entire documentation, please visit https://github.com/yuelin-wang/C-Standard-Template-Library/tree/main/Vector
@@ -168,7 +169,6 @@ void VECTOR_EXPAND(VECTOR_NAME * vector) {
     vector -> array = temp;
 }
 
-
 // Add
 // MODIFIES: the size, the pointer to the array (if expanding), the capacity (if expanding)
 // EFFECTS: increase the size by 1, add the value at the end of the vector
@@ -187,7 +187,6 @@ void VECTOR_ADD(VECTOR_NAME * vector, VECTOR_TYPE value) {
     vector -> size ++;
 }
 
-
 // Pop
 // REQUIRES: size ≥ 1
 // MODIFIES: the size
@@ -202,45 +201,52 @@ void VECTOR_POP(VECTOR_NAME * vector) {
     vector -> size --;
 }
 
-
 // Print
 // EFFECTS: print (1) type, (2) every element in order, (3) size, (4) capacity
 #ifndef VECTOR_NO_IO
-void VECTOR_PRINT(VECTOR_NAME vector) {
+void VECTOR_PRINT(VECTOR_NAME * vector) {
     size_t currentElement = 0;
     printf("[");
-    while (currentElement < vector.size) {
-        printf(FORMAT_STRING, vector.array[currentElement]);
+    while (currentElement < vector -> size) {
+        printf(FORMAT_STRING, vector -> array[currentElement]);
         currentElement++;
-        if (currentElement < vector.size) {
+        if (currentElement < vector -> size) {
             printf(", ");
         }
     }
 
     printf("], %s vector,", STRING2(VECTOR_TYPE_NAME));
-    printf(" current size: %zu, current capacity: %zu\n", vector.size, vector.capacity);
+    printf(" current size: %zu, current capacity: %zu\n", vector -> size, vector -> capacity);
 }
 #endif
 
-
-void VECTOR_FREE(VECTOR_NAME vector) {
+// Free
+// REQUIRES: the array member variable is a pointer that holds dynamic memory, 
+//      i.e. no previous <type>VectorFree is called upon this vector after initialized
+// MODIFIES: the array member variable
+// EFFECTS: free the dynamic memory allocated for this vector
+void VECTOR_FREE(VECTOR_NAME * vector) {
     #if VECTOR_TYPE_INPUT == 's'
-    for (int i = 0; i < vector.element; i++) {
-        free(vector.array[i]);
+    for (int i = 0; i < vector -> size; i++) {
+        free(vector -> array[i]);
     }
     #endif
 
-    free(vector.array);
+    free(vector -> array);
 }
 
-
-void VECTOR_INITIALIZE(VECTOR_NAME * vector, int elementAmount) {
-    int memory = elementAmount * sizeof(VECTOR_TYPE);
+// Initialize
+// MODIFIES: the array, capacity, and size member variable
+// EFFECTS: initialize the array with size of 0 and the specified capacity
+void VECTOR_INITIALIZE(VECTOR_NAME * vector, size_t capacity) {
+    size_t memory = capacity * sizeof(VECTOR_TYPE);
 
     vector -> array = malloc(memory);
-    vector -> memoryAmount = memory;
-    vector -> element = 0;
+    vector -> capacity = capacity;
+    vector -> size = 0;
 }
+
+
 #endif // end inclusion guard for including the same type of vector multiple times
 
 

@@ -53,6 +53,8 @@ intQueue q2; // an integer queue named q2
 | Print | N/A | Prints the elements of the queue | O(n) |
 
 #### Front
+Function name: `<type name>QueueFront`
+
 Syntax:
 ```C
 <type> <type name>QueueFront(<corresponding queue> * input)
