@@ -59,11 +59,62 @@ Syntax:
 ```C
 <type> <type name>QueueFront(<corresponding queue> * input)
 ```
-- returns in the corresponding type
 - 1 argument
     - a pointer of a queue in the corresponding type
+- returns in the corresponding type
 
 Example:
 ```C
 int front = intQueueFront(&q);  // returns the front element of the queue
 ```
+
+#### Add
+Function name: `<type name>QueueAdd`
+
+Syntax:
+```C
+void <type name>QueueAdd(<corresponding queue> * input, <type name> value);
+```
+- 2 arguments
+    - a pointer of a queue in the corresponding type
+    - the value to add
+- adds the value at the end of the queue, increase the size by 1. If the size reaches capacity, expand the queue by doubling the capacity
+
+Example:
+```C
+intQueueAdd(&q, 44);    // adds 44 at the end of the queue
+```
+
+#### Pop
+Function name: `<type name>QueuePop`
+
+Syntax:
+```C
+void <type name>QueuePop(<corresponding queue> * input)
+```
+- 1 argument
+    - a pointer of a queue in the corresponding type
+- removes the last element, decrease the size by 1
+
+Example:
+```C
+intQueuePop(&q);    // removes the last element
+```
+
+#### Initialize
+Function name: `<type name>QueueInitialize`
+
+Syntax:
+```C
+void <type name>QueueInitialize(<corresponding queue> * input, size_t capacity)
+```
+- 2 arguments
+    - a pointer of a queue in the corresponding type
+    - a size_t that specifies the initial capacity
+- note that this only sets the capacity, the size is stll 0. Using addition after this will increase the size to 1 and add the element to the first position. This is different from C++ STL, where `queue<int> q(10);` will set both the size and capacity to 10
+
+Example: 
+```C
+intQueueInitialize(&q, 4); // sets the capacity to 4, size is 0
+```
+

@@ -134,7 +134,7 @@ void <type name>VectorInitialize(<corresponding vector> * input, size_t capacity
 - 2 arguments
     - a pointer of a vector in corresponding type
     - a size_t that specifies the initial capacity
-- note that this only sets the capacity, the size is stll 0. Using addition after this will increase the size to 1 and add the element to the first position. This is different from C++, where `vector<int> v(10);` will set both the size and capacity to 10
+- note that this only sets the capacity, the size is stll 0. Using addition after this will increase the size to 1 and add the element to the first position. This is different from C++ STL, where `vector<int> v(10);` will set both the size and capacity to 10
 
 Example:
 ```C
