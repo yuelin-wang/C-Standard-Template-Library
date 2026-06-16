@@ -61,11 +61,12 @@ Syntax:
 ```C
 <type>  <type name>VectorIndex(<corresponding vector> * input, size_t index)
 ```
-- returns in the corresponding type
 - 2 arguments
     - a pointer of a vector in corresponding type
     - a size_t that specifies the index (first element is at index 0, same as C)
-- for the index argument, a simple integer constant (such as `4`) should be fine. Although the type of the integer constant is most likely going to be int, C will perform implicit conversion to size_t
+- returns (the value of) the corresponding element
+- could only index the elements within the range of size. In another word, index need to be smaller than the size
+- for the index argument, a simple integer constant (such as `4`) should be fine. Although the type of the integer constant is most likely going to be int, C will perform implicit conversion to `size_t`
 
 Example:
 ```C
@@ -83,6 +84,8 @@ void <type name>VectorUpdate(<corresponding vector> * input, size_t index, <corr
     - a pointer of a vector in corresponding type
     - a size_t that specifies the index
     - the value you want to update
+- updates the corresponding element to the provided value
+- could only update the elements within the range of size. In another word, index need to be smaller than the size
 
 Example:
 ```C
@@ -150,7 +153,7 @@ void <type name>VectorFree(<corresponding vector> * input)
 ```
 - 1 argument
     - a pointer of a vector in corresponding type
-- calls `free()` under the hood. Thus, please ensure that you free every vector at the end to avoid memory leak
+- frees the dynamic memory allocated for this vector. This function calls `free()` under the hood. Thus, please ensure that you free every vector at the end to avoid memory leak
 
 Example: 
 ```C
@@ -166,7 +169,7 @@ size_t <type name>VectorSize(<corresponding vector> * input)
 ```
 - 1 argument
     - a pointer of a vector in corresponding type
-- returns the number of element in the vector
+- returns the number of elements in the vector
 
 Example:
 ```C
@@ -201,10 +204,14 @@ intVectorPrint(&v1) // [15, 10, 5], int vector, current size: 3, current capacit
 
 ## Library Inclusion
 The following libraries will be included in this file
-- `stdlib.h`: for memory allocation
-- `stdio.h` (if the macro `VECTOR_NO_IO` is not defined): for printing
-- `string.h` (if the vector type is string): for `strcpy()`
-- `stdbool.h` (if the vector type is bool and if the standard the compiler is using is prior to C23): for macro `true` and `false`
+- `stdlib.h`
+    - memory allocation
+- `stdio.h` (if the macro `VECTOR_NO_IO` is not defined)
+    - printing
+- `string.h` (if the vector type is string)
+    - `strcpy()`
+- `stdbool.h` (if the vector type is bool and if the standard the compiler is using is prior to C23)
+    - macro `true` and `false`
 
 ## Notes on Boolean Vector
 - when you are supplying the `value` argument in `boolVectorUpdate()`, integral value such as `1` or Boolean value such as `true` are both fine

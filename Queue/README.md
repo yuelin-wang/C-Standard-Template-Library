@@ -61,7 +61,7 @@ Syntax:
 ```
 - 1 argument
     - a pointer of a queue in the corresponding type
-- returns in the corresponding type
+- returns (the value of) the first element
 
 Example:
 ```C
@@ -118,3 +118,58 @@ Example:
 intQueueInitialize(&q, 4); // sets the capacity to 4, size is 0
 ```
 
+#### Free
+Function name: `<type name>QueueFree`
+
+Syntax:
+```C
+void <type name>QueueFree(<corresponding queue> * input)
+```
+- 1 argument
+    - a pointer of a queue in the corresponding type
+- frees the dynamic memory allocated for this queue. This function calls `free()` under the hood. Thus, please ensure that you free every queue at the end to avoid memory leak
+
+Example:
+```C
+intQueueFree(&q);   // frees the dynamic memory allocated for the queue
+```
+
+#### Size
+Function name: `<type name>QueueSize`
+
+Syntax:
+```C
+size_t <type name>QueueSize(<corresponding queue> * input)
+```
+- 1 argument
+    - a pointer of a queue in the corresponding type
+- returns the number of elements in the queue
+
+Example:
+```C
+printf("%zu\n", intQueueSize(&q));  // prints the size of this queue
+```
+
+#### Print
+Function name: `<type name>QueuePrint`
+
+Syntax:
+```C
+void <type name>QueuePrint(<corresponding queue> * input)
+```
+- 1 argument
+    - a pointer of a queue in corresponding type
+- will not exist if the macro `QUEUE_NO_IO` is defined
+
+Printing content:
+- every element
+- type of queue
+- current size
+- current capacity
+
+Format: `[<value 1>, <value 2>, ... <value n>], <type> queue, current size: <size>, current capacity: <capacity>\n`
+
+Exmaple:
+```C
+intQueuePrint(&v1) // [11, 22, 33, 44], int queue, current size: 4, current capacity: 8\n
+```

@@ -13,7 +13,7 @@ Structure and function syntax
     Structure: <type>Vector
     Index: <type>VectorIndex(<corresponding vector type> * input, size_t index)
     Update: <type>VectorUpdate(<corresponding vector type> * input, size_t index, <type> value)
-    Add: <type>VectorAdd(<corresponding vector type> * input, <type>)
+    Add: <type>VectorAdd(<corresponding vector type> * input, <type> value)
     Pop: <type>VectorPop(<corresponding vector type> * input)
     Initialize: <type>VectorInitialize(<corresponding vector type> * input, size_t capacity)
     Free: <type>VectorFree(<corresponding vector type> * input)
@@ -130,7 +130,10 @@ For the entire documentation, please visit https://github.com/yuelin-wang/C-Stan
 #define VECTOR_INITIALIZE   VECTOR_ADD_NAME(Initialize)
 #define VECTOR_ADD      VECTOR_ADD_NAME(Add)
 #define VECTOR_POP      VECTOR_ADD_NAME(Pop)
+#define VECTOR_INDEX    VECTOR_ADD_NAME(Index)
+#define VECTOR_UPDATE   VECTOR_ADD_NAME(Update)
 #define VECTOR_FREE     VECTOR_ADD_NAME(Free)
+#define VECTOR_SIZE     VECTOR_ADD_NAME(Size)
 #define VECTOR_EXPAND   VECTOR_ADD_NAME(Expand)
 #define VECTOR_PRINT    VECTOR_ADD_NAME(Print)
 
@@ -220,6 +223,32 @@ void VECTOR_PRINT(VECTOR_NAME * vector) {
 }
 #endif
 
+// Size
+// EFFECTS: returns the size of this vector
+size_t VECTOR_SIZE(VECTOR_NAME * vector) {
+    return vector -> size;
+}
+
+// Index
+// REQUIRES: index < size
+// EFFECTS: returns (the value of) the corresponding element
+VECOTR_TYPE VECTOR_INDEX(VECTOR_NAME * vector, size_t index) {
+    return vector -> array[index];
+}
+
+// Update
+// REQUIRES: index < size
+// MODIFIEES: the array member variable
+// EFFECTS: updates (the value of) the corresponding element
+void VECTOR_UPDATE(VECTOR_NAME * vector, size_t index, VECTOR_TYPE value) {
+    #if VECTOR_TYPE_INPUT == 's'
+    vector -> array[index] = malloc(strlen(value) + 1);
+    strcpy(vector -> array[index], value);
+    #else
+    vector -> array[index] = value;
+    #endif
+}
+
 // Free
 // REQUIRES: the array member variable is a pointer that holds dynamic memory, 
 //      i.e. no previous <type>VectorFree is called upon this vector after initialized
@@ -264,6 +293,9 @@ void VECTOR_INITIALIZE(VECTOR_NAME * vector, size_t capacity) {
 #undef VECTOR_ADD
 #undef VECTOR_POP
 #undef VECTOR_PRINT
+#undef VECTOR_SIZE
+#undef VECTOR_INDEX
+#undef VECTOR_UPDATE
 #undef VECTOR_FREE
 #undef VECTOR_EXPAND
 
